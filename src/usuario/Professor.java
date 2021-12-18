@@ -10,7 +10,7 @@ public class Professor extends Funcionario{
     private int copiaGratuita;
 
     public Professor(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioAtendimento) {
-        super(1, nome, sexo, dataNascimento, matricula, unidade, departamento);
+        super(nome, sexo, dataNascimento, matricula, unidade, departamento);
         this.horarioAtendimento = horarioAtendimento;
         this.copiaGratuita = 200;
     }
@@ -27,12 +27,12 @@ public class Professor extends Funcionario{
         return copiaGratuita;
     }
 
-    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String data, String hora, String cor, String dataEntrega, String horaEntrega, float valor) {
+    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor, String dataEntrega, String horaEntrega) {
         double preco = 0;
         if(!this.verificaQtdCopiaGratuita()) {
             preco = numCopias * 0.25;
         }
-        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, data, hora, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
+        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
 
         return pedidoImpressao;
     }

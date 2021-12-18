@@ -1,25 +1,39 @@
 package impressao;
 
+import usuario.Aluno;
+import usuario.Professor;
 import usuario.Usuario;
 
 public class PedidoImpressao {
-    private int id, arquivo, numCopias;
-    private String data, hora, cor, status, dataEntrega, horaEntrega;
+    private static int id;
+    private int arquivo, numCopias;
+    private String cor, status, dataEntrega, horaEntrega;
     private double valor;
-    private Usuario solicitante;
+    private Professor solicitanteProfessor;
+    private Aluno solicitanteAluno;
 
-    public PedidoImpressao(int arquivo, int numCopias, String data, String hora, String cor, String status, String dataEntrega, String horaEntrega, double valor, Usuario solicitante) {
-        this.id = 1;
+    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Professor solicitanteProfessor) {
+        id++;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
-        this.data = data;
-        this.hora = hora;
         this.cor = cor;
         this.status = status;
         this.dataEntrega = dataEntrega;
         this.horaEntrega = horaEntrega;
         this.valor = valor;
-        this.solicitante = solicitante;
+        this.solicitanteProfessor = solicitanteProfessor;
+    }
+
+    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Aluno solicitanteAluno) {
+        id++;
+        this.arquivo = arquivo;
+        this.numCopias = numCopias;
+        this.cor = cor;
+        this.status = status;
+        this.dataEntrega = dataEntrega;
+        this.horaEntrega = horaEntrega;
+        this.valor = valor;
+        this.solicitanteAluno = solicitanteAluno;
     }
 
     public int getId() {
@@ -44,22 +58,6 @@ public class PedidoImpressao {
 
     public void setNumCopias(int numCopias) {
         this.numCopias = numCopias;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
     }
 
     public String getCor() {
@@ -102,14 +100,28 @@ public class PedidoImpressao {
         this.valor = valor;
     }
 
+    public Usuario getSolicitanteProfessor() {
+        return solicitanteProfessor;
+    }
+
+    public void setSolicitanteProfessor(Professor solicitante) {
+        this.solicitanteProfessor = solicitante;
+    }
+
+    public Aluno getSolicitanteAluno() {
+        return solicitanteAluno;
+    }
+
+    public void setSolicitanteAluno(Aluno solicitanteAluno) {
+        this.solicitanteAluno = solicitanteAluno;
+    }
+
     @Override
     public String toString() {
         return "PedidoImpressao{" +
                 "id=" + id +
                 ", arquivo=" + arquivo +
                 ", numCopias=" + numCopias +
-                ", data='" + data + '\'' +
-                ", hora='" + hora + '\'' +
                 ", cor='" + cor + '\'' +
                 ", dataEntrega='" + dataEntrega + '\'' +
                 ", horaEntrega='" + horaEntrega + '\'' +

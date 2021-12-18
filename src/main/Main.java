@@ -1,5 +1,7 @@
 package main;
 
+import disciplina.Disciplina;
+import disciplina.DisciplinaSemestre;
 import impressao.PedidoImpressao;
 import usuario.Aluno;
 import usuario.Secretario;
@@ -18,6 +20,8 @@ public class Main {
         Collection<Aluno> listaAlunos = new ArrayList<>();
         Collection<Secretario> listaSecretarios = new ArrayList<>();
         Collection<PedidoImpressao> listaPedidos = new ArrayList<>();
+        Collection<Disciplina> listaDisciplinas = new ArrayList<>();
+        Collection<DisciplinaSemestre> listaDisciplinasSemestre = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         int opc = -1;
@@ -33,17 +37,103 @@ public class Main {
                 case 1:
                     System.out.println("DIGITE A MATRICULA PARA ACESSAR");
                     String matriculaA = scanner.nextLine();
-                    while (!Objects.equals(matriculaA, "123456")) {
-                        System.out.println("ERRO! DIGITE NOVAMENTE");
-                        matriculaA = scanner.nextLine();
+                    boolean existeAluno = false;
+                    Aluno alunoPedindo = null;
+                    for(Aluno aluno : listaAlunos) {
+                        if(Objects.equals(matriculaA, aluno.getMatricula())) {
+                            alunoPedindo = aluno;
+                            existeAluno = true;
+                            break;
+                        }
+                    }
+                    if(existeAluno) {
+                        System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
+                        System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
+                        System.out.println("DIGITE 0 PARA SAIR");
+                        int opcAluno = scanner.nextInt();
+                        switch(opcAluno) {
+                            case 1:
+                                int arquivo, numCopias;
+                                String cor, dataEntrega, horaEntrega;
+                                System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
+                                System.out.println("Digite o número do arquivo");
+                                arquivo = scanner.nextInt();
+                                System.out.println("Digite o número de cópias");
+                                numCopias = scanner.nextInt();
+                                System.out.println("Digite a data da impressão");
+                                dataEntrega = scanner.nextLine();
+                                System.out.println("Digite a hora da impressão");
+                                horaEntrega = scanner.nextLine();
+                                System.out.println("Digite a cor da impressão");
+                                cor = scanner.nextLine();
+                                alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                break;
+                            case 2:
+                                for(PedidoImpressao pedido : listaPedidos) {
+                                    if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
+                                        pedido.toString();
+                                        alunoPedindo.pegar(pedido);
+                                    }
+                                }
+                                System.out.println("AS SUAS IMPRESSÕES FORAM RETIRADAS COM SUCESSO!");
+                            case 0:
+                                break;
+                            default:
+                                System.out.println("Opção inválida! Erro");
+                        }
                     }
                     break;
                 case 2:
                     System.out.println("DIGITE A MATRICULA PARA ACESSAR");
                     String matriculaP = scanner.nextLine();
-                    while (!Objects.equals(matriculaP, "123456")) {
-                        System.out.println("ERRO! DIGITE NOVAMENTE");
-                        matriculaP = scanner.nextLine();
+                    boolean existe = false;
+                    Professor professorPedindo = null;
+                    for(Professor professor : listaProfessores) {
+                        if(Objects.equals(matriculaP, professor.getMatricula())) {
+                            professorPedindo = professor;
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if(existe) {
+                        System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
+                        System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
+                        System.out.println("DIGITE 0 PARA SAIR");
+                        int opcProf = scanner.nextInt();
+                        switch(opcProf) {
+                            case 1:
+                                int arquivo, numCopias;
+                                String cor, dataEntrega, horaEntrega;
+                                System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
+                                System.out.println("Digite o número do arquivo");
+                                arquivo = scanner.nextInt();
+                                System.out.println("Digite o número de cópias");
+                                numCopias = scanner.nextInt();
+                                System.out.println("Digite a data da impressão");
+                                dataEntrega = scanner.nextLine();
+                                System.out.println("Digite a hora da impressão");
+                                horaEntrega = scanner.nextLine();
+                                System.out.println("Digite a cor da impressão");
+                                cor = scanner.nextLine();
+                                professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                break;
+                            case 2:
+                                for(PedidoImpressao pedido : listaPedidos) {
+                                    if(pedido.getSolicitanteProfessor() == professorPedindo && pedido.getStatus() == "Concluido") {
+                                        pedido.toString();
+                                        professorPedindo.pegar(pedido);
+                                    }
+                                }
+                                System.out.println("AS SUAS IMPRESSÕES FORAM RETIRADAS COM SUCESSO!");
+                            case 0:
+                                break;
+                            default:
+                                System.out.println("Erro! Opção inválida");
+                                break;
+                        }
+                    }
+                    else {
+                        System.out.println("ERRO! MATRÍCULA NÃO ENCONTRADA! TENTE NOVAMENTE");
                     }
                     break;
                 case 3:
@@ -59,6 +149,7 @@ public class Main {
                         System.out.println("DIGITE 1 PARA COLOCAR PEDIDOS NA FILA");
                         System.out.println("DIGITE 2 PARA DAR PEDIDOS COMO CONCLUÍDO");
                         System.out.println("DIGITE 3 PARA CADASTRAR USUÁRIOS");
+                        System.out.println("DIGITE 4 PARA CADASTRAR DISCIPLINAS");
                         System.out.println("DIGITE 0 PARA SAIR");
                         secOpc = scanner.nextInt();
                     }
@@ -190,10 +281,27 @@ public class Main {
                                     listaSecretarios.add(secretario);
                                     break;
                                 default:
+                                    System.out.println("Erro! Opção inválida");
                                     break;
                             }
-                        default:
-                            break;
+                        case 4:
+                            System.out.println("Digite o nome da disciplina");
+                            String nomeDisciplina = scanner.nextLine();
+                            boolean existeDisciplina = false;
+                            Disciplina disciplinaProcurada;
+                            for(Disciplina disciplina : listaDisciplinas) {
+                                if(Objects.equals(disciplina.getNome(), nomeDisciplina)) {
+                                    existeDisciplina = true;
+                                    disciplinaProcurada = disciplina;
+                                }
+                            }
+                            if(!existeDisciplina) {
+                                System.out.println("Disciplina não encontrada. Cadastrando...");
+                                Disciplina disciplina = new Disciplina(nomeDisciplina);
+                                listaDisciplinas.add(disciplina);
+                            }
+                            System.out.println("Indique a matrícula do professor que ministrará a disciplina: ");
+                            
                     }
                     break;
                 default:

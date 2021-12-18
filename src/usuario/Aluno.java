@@ -10,7 +10,7 @@ public class Aluno extends Usuario{
     private String matricula, curso;
 
     public Aluno(String nome, String sexo, String dataNascimento, String matricula, String curso) {
-        super(1, nome, sexo, dataNascimento);
+        super(nome, sexo, dataNascimento);
         this.copiaGratuita = 50;
         this.matricula = matricula;
         this.curso = curso;
@@ -40,12 +40,12 @@ public class Aluno extends Usuario{
         this.curso = curso;
     }
 
-    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String data, String hora, String cor, String dataEntrega, String horaEntrega, float valor) {
+    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor, String dataEntrega, String horaEntrega) {
         double preco = 0;
         if(!this.verificaQtdCopiaGratuita()) {
             preco = numCopias * 0.25;
         }
-        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, data, hora, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
+        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
 
         return pedidoImpressao;
     }

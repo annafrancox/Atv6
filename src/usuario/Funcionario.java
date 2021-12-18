@@ -3,8 +3,8 @@ package usuario;
 public class Funcionario extends Usuario{
     private String matricula, unidade, departamento;
 
-    public Funcionario(int id, String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento) {
-        super(id, nome, sexo, dataNascimento);
+    public Funcionario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento) {
+        super(nome, sexo, dataNascimento);
         this.matricula = matricula;
         this.unidade = unidade;
         this.departamento = departamento;

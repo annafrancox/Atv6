@@ -11,7 +11,7 @@ public class Secretario extends Funcionario{
     public static final String credential = "SEC_IMPRESSAO";
 
     public Secretario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
-        super(1, nome, sexo, dataNascimento, matricula, unidade, departamento);
+        super(nome, sexo, dataNascimento, matricula, unidade, departamento);
         this.horarioTrabalho = horarioTrabalho;
     }
 
