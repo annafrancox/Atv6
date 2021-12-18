@@ -48,53 +48,56 @@ public class Main {
                         }
                     }
                     if(existeAluno) {
-                        System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
-                        System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
-                        System.out.println("DIGITE 0 PARA SAIR");
-                        int opcAluno = scanner.nextInt();
-                        switch(opcAluno) {
-                            case 1:
-                                int arquivo, numCopias;
-                                String cor, dataEntrega, horaEntrega;
-                                System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
-                                System.out.println("Digite o número do arquivo");
-                                arquivo = scanner.nextInt();
-                                System.out.println("Digite o número de cópias");
-                                numCopias = scanner.nextInt();
-                                scanner.nextLine();
-                                System.out.println("Digite a data da impressão");
-                                dataEntrega = scanner.nextLine();
-                                System.out.println("Digite a hora da impressão");
-                                horaEntrega = scanner.nextLine();
-                                System.out.println("Digite a cor da impressão");
-                                cor = scanner.nextLine();
-                                PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
-                                listaPedidos.add(pedidoImpressao);
-                                break;
-                            case 2:
-                                PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
-                                int i = 0, j = 0;
-                                for(PedidoImpressao pedido : listaPedidos) {
-                                    j++;
-                                    if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
-                                        System.out.println(pedido);
-                                        if(alunoPedindo.pegar(pedido)) {
-                                            pedidosParaRemover[i] = pedido;
-                                            i++;
-                                            System.out.println("Impressão retirada com sucesso!");
+                        int opcAluno = -1;
+                        while(opcAluno != 0) {
+                            System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
+                            System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
+                            System.out.println("DIGITE 0 PARA SAIR");
+                            opcAluno = scanner.nextInt();
+                            switch(opcAluno) {
+                                case 1:
+                                    int arquivo, numCopias;
+                                    String cor, dataEntrega, horaEntrega;
+                                    System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
+                                    System.out.println("Digite o número do arquivo");
+                                    arquivo = scanner.nextInt();
+                                    System.out.println("Digite o número de cópias");
+                                    numCopias = scanner.nextInt();
+                                    scanner.nextLine();
+                                    System.out.println("Digite a data da impressão");
+                                    dataEntrega = scanner.nextLine();
+                                    System.out.println("Digite a hora da impressão");
+                                    horaEntrega = scanner.nextLine();
+                                    System.out.println("Digite a cor da impressão");
+                                    cor = scanner.nextLine();
+                                    PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                    listaPedidos.add(pedidoImpressao);
+                                    break;
+                                case 2:
+                                    PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
+                                    int i = 0, j = 0;
+                                    for(PedidoImpressao pedido : listaPedidos) {
+                                        j++;
+                                        if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
+                                            System.out.println(pedido);
+                                            if(alunoPedindo.pegar(pedido)) {
+                                                pedidosParaRemover[i] = pedido;
+                                                i++;
+                                                System.out.println("Impressão retirada com sucesso!");
+                                            }
                                         }
                                     }
-                                }
-                                if(j == 0) {
-                                    System.out.println("Não existem pedidos para serem retirados.");
-                                }
-                                for(PedidoImpressao r : pedidosParaRemover) {
-                                    listaPedidos.remove(r);
-                                }
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Opção inválida! Erro");
+                                    if(j == 0) {
+                                        System.out.println("Não existem pedidos para serem retirados.");
+                                    }
+                                    for(PedidoImpressao r : pedidosParaRemover) {
+                                        listaPedidos.remove(r);
+                                    }
+                                case 0:
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida! Erro");
+                            }
                         }
                     }
                     else {
@@ -115,55 +118,58 @@ public class Main {
                         }
                     }
                     if(existe) {
-                        System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
-                        System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
-                        System.out.println("DIGITE 0 PARA SAIR");
-                        int opcProf = scanner.nextInt();
-                        switch(opcProf) {
-                            case 1:
-                                int arquivo, numCopias;
-                                String cor, dataEntrega, horaEntrega;
-                                System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
-                                System.out.println("Digite o número do arquivo");
-                                arquivo = scanner.nextInt();
-                                System.out.println("Digite o número de cópias");
-                                numCopias = scanner.nextInt();
-                                scanner.nextLine();
-                                System.out.println("Digite a data da impressão");
-                                dataEntrega = scanner.nextLine();
-                                System.out.println("Digite a hora da impressão");
-                                horaEntrega = scanner.nextLine();
-                                System.out.println("Digite a cor da impressão");
-                                cor = scanner.nextLine();
-                                PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
-                                System.out.println(pedidoImpressao);
-                                listaPedidos.add(pedidoImpressao);
-                                break;
-                            case 2:
-                                PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
-                                int i = 0, j = 0;
-                                for(PedidoImpressao pedido : listaPedidos) {
-                                    j++;
-                                    if(pedido.getSolicitanteProfessor() == professorPedindo && pedido.getStatus() == "Concluido") {
-                                        System.out.println(pedido);
-                                        if(professorPedindo.pegar(pedido)) {
-                                            pedidosParaRemover[i] = pedido;
-                                            i++;
-                                            System.out.println("Impressão retirada com sucesso!");
+                        int opcProf = -1;
+                        while(opcProf != 0) {
+                            System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
+                            System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
+                            System.out.println("DIGITE 0 PARA SAIR");
+                            opcProf = scanner.nextInt();
+                            switch(opcProf) {
+                                case 1:
+                                    int arquivo, numCopias;
+                                    String cor, dataEntrega, horaEntrega;
+                                    System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
+                                    System.out.println("Digite o número do arquivo");
+                                    arquivo = scanner.nextInt();
+                                    System.out.println("Digite o número de cópias");
+                                    numCopias = scanner.nextInt();
+                                    scanner.nextLine();
+                                    System.out.println("Digite a data da impressão");
+                                    dataEntrega = scanner.nextLine();
+                                    System.out.println("Digite a hora da impressão");
+                                    horaEntrega = scanner.nextLine();
+                                    System.out.println("Digite a cor da impressão");
+                                    cor = scanner.nextLine();
+                                    PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                    System.out.println(pedidoImpressao);
+                                    listaPedidos.add(pedidoImpressao);
+                                    break;
+                                case 2:
+                                    PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
+                                    int i = 0, j = 0;
+                                    for(PedidoImpressao pedido : listaPedidos) {
+                                        j++;
+                                        if(pedido.getSolicitanteProfessor() == professorPedindo && pedido.getStatus() == "Concluido") {
+                                            System.out.println(pedido);
+                                            if(professorPedindo.pegar(pedido)) {
+                                                pedidosParaRemover[i] = pedido;
+                                                i++;
+                                                System.out.println("Impressão retirada com sucesso!");
+                                            }
                                         }
                                     }
-                                }
-                                if(j == 0) {
-                                    System.out.println("Não existem pedidos para serem retirados.");
-                                }
-                                for(PedidoImpressao r : pedidosParaRemover) {
-                                    listaPedidos.remove(r);
-                                }
-                            case 0:
-                                break;
-                            default:
-                                System.out.println("Erro! Opção inválida");
-                                break;
+                                    if(j == 0) {
+                                        System.out.println("Não existem pedidos para serem retirados.");
+                                    }
+                                    for(PedidoImpressao r : pedidosParaRemover) {
+                                        listaPedidos.remove(r);
+                                    }
+                                case 0:
+                                    break;
+                                default:
+                                    System.out.println("Erro! Opção inválida");
+                                    break;
+                            }
                         }
                     }
                     else {
