@@ -61,6 +61,7 @@ public class Main {
                                 arquivo = scanner.nextInt();
                                 System.out.println("Digite o número de cópias");
                                 numCopias = scanner.nextInt();
+                                scanner.nextLine();
                                 System.out.println("Digite a data da impressão");
                                 dataEntrega = scanner.nextLine();
                                 System.out.println("Digite a hora da impressão");
@@ -80,6 +81,7 @@ public class Main {
                                         if(alunoPedindo.pegar(pedido)) {
                                             pedidosParaRemover[i] = pedido;
                                             i++;
+                                            System.out.println("Impressão retirada com sucesso!");
                                         }
                                     }
                                 }
@@ -89,7 +91,6 @@ public class Main {
                                 for(PedidoImpressao r : pedidosParaRemover) {
                                     listaPedidos.remove(r);
                                 }
-                                System.out.println("AS SUAS IMPRESSÕES FORAM RETIRADAS COM SUCESSO!");
                             case 0:
                                 break;
                             default:
@@ -147,6 +148,7 @@ public class Main {
                                         if(professorPedindo.pegar(pedido)) {
                                             pedidosParaRemover[i] = pedido;
                                             i++;
+                                            System.out.println("Impressão retirada com sucesso!");
                                         }
                                     }
                                 }
@@ -156,7 +158,6 @@ public class Main {
                                 for(PedidoImpressao r : pedidosParaRemover) {
                                     listaPedidos.remove(r);
                                 }
-                                System.out.println("AS SUAS IMPRESSÕES FORAM RETIRADAS COM SUCESSO!");
                             case 0:
                                 break;
                             default:
@@ -356,12 +357,14 @@ public class Main {
                                     if(Objects.equals(disciplina.getNome(), nomeDisciplina)) {
                                         existeDisciplina = true;
                                         disciplinaProcurada = disciplina;
+                                        break;
                                     }
                                 }
                                 if(!existeDisciplina) {
                                     System.out.println("Disciplina não encontrada. Cadastrando...");
                                     Disciplina disciplina = new Disciplina(nomeDisciplina);
                                     listaDisciplinas.add(disciplina);
+                                    disciplinaProcurada = disciplina;
                                 }
                                 Professor professorMinistrado = null;
                                 System.out.println("Indique a matrícula do professor que ministrará a disciplina: ");
@@ -380,8 +383,9 @@ public class Main {
                                     boolean cadastrado = false;
                                     DisciplinaSemestre disciplinaSemestre = new DisciplinaSemestre(disciplinaProcurada, professorMinistrado, semestre);
                                     for(DisciplinaSemestre ds : listaDisciplinasSemestre) {
-                                        if(ds.getProfessor() != null && ds.getDisciplina() == disciplinaProcurada && Objects.equals(ds.getSemestre(), semestre)) {
+                                        if(ds.getProfessor() != null && Objects.equals(ds.getDisciplina().getNome(), disciplinaProcurada.getNome()) && Objects.equals(ds.getSemestre(), semestre)) {
                                             cadastrado = true;
+                                            break;
                                         }
                                     }
                                     if(cadastrado) {
