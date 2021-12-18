@@ -77,7 +77,7 @@ public class Main {
                                 for(PedidoImpressao pedido : listaPedidos) {
                                     j++;
                                     if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
-                                        System.out.println(pedido.toString());
+                                        System.out.println(pedido);
                                         if(alunoPedindo.pegar(pedido)) {
                                             pedidosParaRemover[i] = pedido;
                                             i++;
@@ -136,6 +136,7 @@ public class Main {
                                 System.out.println("Digite a cor da impressão");
                                 cor = scanner.nextLine();
                                 PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                System.out.println(pedidoImpressao);
                                 listaPedidos.add(pedidoImpressao);
                                 break;
                             case 2:
@@ -144,7 +145,7 @@ public class Main {
                                 for(PedidoImpressao pedido : listaPedidos) {
                                     j++;
                                     if(pedido.getSolicitanteProfessor() == professorPedindo && pedido.getStatus() == "Concluido") {
-                                        System.out.println(pedido.toString());
+                                        System.out.println(pedido);
                                         if(professorPedindo.pegar(pedido)) {
                                             pedidosParaRemover[i] = pedido;
                                             i++;
@@ -197,7 +198,7 @@ public class Main {
                                     for(PedidoImpressao pedido : listaPedidos) {
                                         if(Objects.equals(pedido.getStatus(), "Solicitado")) {
                                             contPedidosSolicitados++;
-                                            System.out.println(pedido.toString());
+                                            System.out.println(pedido);
                                         }
                                     }
                                     if(contPedidosSolicitados > 0) {
@@ -234,7 +235,7 @@ public class Main {
                                     for(PedidoImpressao pedido : listaPedidos) {
                                         if(Objects.equals(pedido.getStatus(), "Fila")) {
                                             contPedidosFila++;
-                                            System.out.println(pedido.toString());
+                                            System.out.println(pedido);
                                         }
                                     }
                                     if(contPedidosFila > 0) {
@@ -242,7 +243,7 @@ public class Main {
                                         int idFila = scanner.nextInt();
                                         PedidoImpressao pedidoParaConcluir = null;
                                         for(PedidoImpressao pedido : listaPedidos) {
-                                            if(pedido.getId() == idFila) {
+                                            if(pedido.getId() == idFila && Objects.equals(pedido.getStatus(), "Fila")) {
                                                 pedidoParaConcluir = pedido;
                                                 break;
                                             }
@@ -287,6 +288,22 @@ public class Main {
                                         String dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Digite a matricula:");
                                         matricula = scanner.nextLine();
+                                        boolean verificaMatricula = false;
+                                        for(Professor professor : listaProfessores) {
+                                            if(Objects.equals(professor.getMatricula(), matricula)) {
+                                                verificaMatricula = true;
+                                                break;
+                                            }
+                                        }
+                                        while(verificaMatricula) {
+                                            for(Professor professor : listaProfessores) {
+                                                if(Objects.equals(professor.getMatricula(), matricula)) {
+                                                    matricula = scanner.nextLine();
+                                                    break;
+                                                }
+                                            }
+                                            verificaMatricula = false;
+                                        }
                                         System.out.println("Digite a unidade: ");
                                         unidade = scanner.nextLine();
                                         System.out.println("Digite o departamento: ");
@@ -312,6 +329,21 @@ public class Main {
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Digite a matricula: ");
                                         matricula = scanner.nextLine();
+                                        boolean verificaMatriculaAluno = false;
+                                        for(Aluno aluno : listaAlunos) {
+                                            if(Objects.equals(aluno.getMatricula(), matricula)) {
+                                                break;
+                                            }
+                                        }
+                                        while(verificaMatriculaAluno) {
+                                            for(Aluno aluno : listaAlunos) {
+                                                if(Objects.equals(aluno.getMatricula(), matricula)) {
+                                                    matricula = scanner.nextLine();
+                                                    break;
+                                                }
+                                            }
+                                            verificaMatriculaAluno = false;
+                                        }
                                         System.out.println("Digite o curso: ");
                                         curso = scanner.nextLine();
                                         Aluno aluno = Secretario.cadastraAluno(nome, sexo, dataNascimento, matricula, curso);
@@ -333,6 +365,22 @@ public class Main {
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Digite a matricula:");
                                         matricula = scanner.nextLine();
+                                        boolean verificaMatriculaSec = false;
+                                        for(Secretario secretario : listaSecretarios) {
+                                            if(Objects.equals(secretario.getMatricula(), matricula)) {
+                                                verificaMatriculaSec = true;
+                                                break;
+                                            }
+                                        }
+                                        while(verificaMatriculaSec) {
+                                            for(Secretario secretario : listaSecretarios) {
+                                                if(Objects.equals(secretario.getMatricula(), matricula)) {
+                                                    matricula = scanner.nextLine();
+                                                    break;
+                                                }
+                                            }
+                                            verificaMatriculaSec = false;
+                                        }
                                         System.out.println("Digite a unidade: ");
                                         unidade = scanner.nextLine();
                                         System.out.println("Digite o departamento: ");
@@ -341,6 +389,7 @@ public class Main {
                                         horarioTrabalho = scanner.nextLine();
                                         Secretario secretario = Secretario.cadastraSecretario(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioTrabalho);
                                         listaSecretarios.add(secretario);
+                                        System.out.println("A credencial de acesso para o novo secretário é " + Secretario.credential + ". Por favor informe-lhe.");
                                         break;
                                     default:
                                         System.out.println("Erro! Opção inválida");

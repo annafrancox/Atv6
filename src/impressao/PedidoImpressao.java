@@ -5,15 +5,16 @@ import usuario.Professor;
 import usuario.Usuario;
 
 public class PedidoImpressao {
-    private static int id;
-    private int arquivo, numCopias;
+    private static int auxId;
+    private int id, arquivo, numCopias;
     private String cor, status, dataEntrega, horaEntrega;
     private double valor;
     private Professor solicitanteProfessor;
     private Aluno solicitanteAluno;
 
     public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Professor solicitanteProfessor) {
-        id++;
+        auxId++;
+        this.id = auxId;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
         this.cor = cor;
@@ -25,7 +26,8 @@ public class PedidoImpressao {
     }
 
     public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Aluno solicitanteAluno) {
-        id++;
+        auxId++;
+        this.id = auxId;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
         this.cor = cor;

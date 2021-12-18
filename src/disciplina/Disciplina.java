@@ -1,11 +1,13 @@
 package disciplina;
 
 public class Disciplina {
-    private static int id;
+    private static int auxId;
+    private int id;
     private String nome;
 
     public Disciplina(String nome) {
-        id++;
+        auxId++;
+        this.id = auxId;
         this.nome = nome;
     }
 

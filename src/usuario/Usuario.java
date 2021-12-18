@@ -6,12 +6,13 @@ import java.util.Calendar;
 
 
 public class Usuario {
-    private static int id;
-    private int idade;
+    private static int auxId;
+    private int id, idade;
     private String nome, sexo, dataNascimento;
 
     public Usuario(String nome, String sexo, String dataNascimento) {
-        id++;
+        auxId++;
+        this.id = auxId;
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;

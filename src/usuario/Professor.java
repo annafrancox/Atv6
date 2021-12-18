@@ -29,10 +29,15 @@ public class Professor extends Funcionario{
 
     public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor, String dataEntrega, String horaEntrega) {
         double preco = 0;
-        if(numCopias > getCopiaGratuita()) {
+
+        if(numCopias > getCopiaGratuita() || !verificaQtdCopiaGratuita()) {
             preco = (numCopias-getCopiaGratuita()) * 0.25;
         }
         PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
+        this.copiaGratuita -= numCopias;
+        if(this.copiaGratuita < 0) {
+            setCopiaGratuita(0);
+        }
 
         return pedidoImpressao;
     }
@@ -55,9 +60,6 @@ public class Professor extends Funcionario{
             }
         }
         pedidoImpressao.setStatus("Entregue");
-        if(verificaQtdCopiaGratuita()) {
-           this.copiaGratuita -= pedidoImpressao.getNumCopias();
-        }
         return true;
     }
 }
