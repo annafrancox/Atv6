@@ -6,14 +6,15 @@ import java.util.Calendar;
 
 
 public class Usuario {
-    private int id;
-    private String nome, sexo, dataNascimento, idade;
+    private int id, idade;
+    private String nome, sexo, dataNascimento;
 
     public Usuario(int id, String nome, String sexo, String dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
+        this.setIdade();
     }
 
     public int getId() {
@@ -48,13 +49,36 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getIdade() {
+    public int getIdade() {
         return idade;
     }
 
-    public void calculaIdade() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        System.out.println(dateFormat.format(cal.getTime()));
+    public void setIdade() {
+        this.calculaIdade();
     }
+
+    public void calculaIdade() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        String data = dateFormat.format(cal.getTime());
+
+        String dataParts[] = data.split("/");
+        String usuarioDataNascimento[] = this.dataNascimento.split("/");
+
+        if(Integer.parseInt(dataParts[1]) > Integer.parseInt(usuarioDataNascimento[1])) {
+            this.idade = Integer.parseInt(dataParts[0]) - Integer.parseInt(usuarioDataNascimento[0]);
+        }
+        else if(Integer.parseInt(dataParts[1]) < Integer.parseInt(usuarioDataNascimento[1])) {
+            this.idade = Integer.parseInt(dataParts[0]) - Integer.parseInt(usuarioDataNascimento[0]) - 1;
+        }
+        else {
+            if(Integer.parseInt(dataParts[2]) >= Integer.parseInt(usuarioDataNascimento[2])) {
+                this.idade = Integer.parseInt(dataParts[0]) - Integer.parseInt(usuarioDataNascimento[0]);
+            }
+            else {
+                this.idade = Integer.parseInt(dataParts[0]) - Integer.parseInt(usuarioDataNascimento[0]) - 1;
+            }
+        }
+    }
+
 }

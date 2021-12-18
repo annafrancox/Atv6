@@ -1,12 +1,17 @@
 package usuario;
 
+import impressao.PedidoImpressao;
+
+import java.util.Objects;
+import java.util.Scanner;
+
 public class Aluno extends Usuario{
     private int copiaGratuita;
     private String matricula, curso;
 
-    public Aluno(int id, String nome, String sexo, String dataNascimento, int copiaGratuita, String matricula, String curso) {
-        super(id, nome, sexo, dataNascimento);
-        this.copiaGratuita = copiaGratuita;
+    public Aluno(String nome, String sexo, String dataNascimento, String matricula, String curso) {
+        super(1, nome, sexo, dataNascimento);
+        this.copiaGratuita = 50;
         this.matricula = matricula;
         this.curso = curso;
     }
@@ -33,6 +38,32 @@ public class Aluno extends Usuario{
 
     public void setCurso(String curso) {
         this.curso = curso;
+    }
+
+    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String data, String hora, String cor, String dataEntrega, String horaEntrega, float valor) {
+        double preco = 0;
+        if(!this.verificaQtdCopiaGratuita()) {
+            preco = numCopias * 0.25;
+        }
+        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, data, hora, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
+
+        return pedidoImpressao;
+    }
+
+    public boolean verificaQtdCopiaGratuita() {
+        return this.getCopiaGratuita() > 0;
+    }
+
+    public void pegar(PedidoImpressao pedidoImpressao) {
+        if(pedidoImpressao.getValor() > 0.0) {
+            System.out.println("O valor é " + pedidoImpressao.getValor() + ". Confirmar (S/N)?");
+            Scanner scanner = new Scanner(System.in);
+            String resposta = scanner.nextLine();
+            if(Objects.equals(resposta, "N")) {
+                return;
+            }
+        }
+        pedidoImpressao.setStatus("Entregue");
     }
 }
 

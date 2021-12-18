@@ -1,10 +1,17 @@
 package usuario;
 
+import impressao.PedidoImpressao;
+import usuario.Aluno;
+import usuario.Professor;
+import usuario.Secretario;
+
 public class Secretario extends Funcionario{
     private String horarioTrabalho;
 
-    public Secretario(int id, String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
-        super(id, nome, sexo, dataNascimento, matricula, unidade, departamento);
+    public static final String credential = "SEC_IMPRESSAO";
+
+    public Secretario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
+        super(1, nome, sexo, dataNascimento, matricula, unidade, departamento);
         this.horarioTrabalho = horarioTrabalho;
     }
 
@@ -14,5 +21,31 @@ public class Secretario extends Funcionario{
 
     public void setHorarioTrabalho(String horarioTrabalho) {
         this.horarioTrabalho = horarioTrabalho;
+    }
+
+    public Aluno cadastraAluno(String nome, String sexo, String dataNascimento, String matricula, String curso) {
+        Aluno aluno = new Aluno(nome, sexo, dataNascimento, matricula, curso);
+
+        return aluno;
+    }
+
+    public Professor cadastraProfessor(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String disciplinas, String horarioAtendimento) {
+        Professor professor = new Professor(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioAtendimento);
+
+        return professor;
+    }
+
+    public Secretario cadastraSecretario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
+        Secretario secretario = new Secretario(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioTrabalho);
+
+        return secretario;
+    }
+
+    public void registraImpressao(PedidoImpressao pedido) {
+        pedido.setStatus("Fila");
+    }
+
+    public void imprimir(PedidoImpressao pedido) {
+        pedido.setStatus("Concluido");
     }
 }

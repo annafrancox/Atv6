@@ -1,12 +1,15 @@
 package impressao;
 
+import usuario.Usuario;
+
 public class PedidoImpressao {
     private int id, arquivo, numCopias;
     private String data, hora, cor, status, dataEntrega, horaEntrega;
-    private float valor;
+    private double valor;
+    private Usuario solicitante;
 
-    public PedidoImpressao(int id, int arquivo, int numCopias, String data, String hora, String cor, String status, String dataEntrega, String horaEntrega, float valor) {
-        this.id = id;
+    public PedidoImpressao(int arquivo, int numCopias, String data, String hora, String cor, String status, String dataEntrega, String horaEntrega, double valor, Usuario solicitante) {
+        this.id = 1;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
         this.data = data;
@@ -16,6 +19,7 @@ public class PedidoImpressao {
         this.dataEntrega = dataEntrega;
         this.horaEntrega = horaEntrega;
         this.valor = valor;
+        this.solicitante = solicitante;
     }
 
     public int getId() {
@@ -90,7 +94,7 @@ public class PedidoImpressao {
         this.horaEntrega = horaEntrega;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
