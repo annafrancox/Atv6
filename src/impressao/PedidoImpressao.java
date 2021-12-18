@@ -101,4 +101,19 @@ public class PedidoImpressao {
     public void setValor(float valor) {
         this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "PedidoImpressao{" +
+                "id=" + id +
+                ", arquivo=" + arquivo +
+                ", numCopias=" + numCopias +
+                ", data='" + data + '\'' +
+                ", hora='" + hora + '\'' +
+                ", cor='" + cor + '\'' +
+                ", dataEntrega='" + dataEntrega + '\'' +
+                ", horaEntrega='" + horaEntrega + '\'' +
+                ", valor=" + valor +
+                '}';
+    }
 }

@@ -23,29 +23,29 @@ public class Secretario extends Funcionario{
         this.horarioTrabalho = horarioTrabalho;
     }
 
-    public Aluno cadastraAluno(String nome, String sexo, String dataNascimento, String matricula, String curso) {
+    public static Aluno cadastraAluno(String nome, String sexo, String dataNascimento, String matricula, String curso) {
         Aluno aluno = new Aluno(nome, sexo, dataNascimento, matricula, curso);
 
         return aluno;
     }
 
-    public Professor cadastraProfessor(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String disciplinas, String horarioAtendimento) {
+    public static Professor cadastraProfessor(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioAtendimento) {
         Professor professor = new Professor(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioAtendimento);
 
         return professor;
     }
 
-    public Secretario cadastraSecretario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
+    public static Secretario cadastraSecretario(String nome, String sexo, String dataNascimento, String matricula, String unidade, String departamento, String horarioTrabalho) {
         Secretario secretario = new Secretario(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioTrabalho);
 
         return secretario;
     }
 
-    public void registraImpressao(PedidoImpressao pedido) {
+    public static void registraImpressao(PedidoImpressao pedido) {
         pedido.setStatus("Fila");
     }
 
-    public void imprimir(PedidoImpressao pedido) {
+    public static void imprimir(PedidoImpressao pedido) {
         pedido.setStatus("Concluido");
     }
 }
