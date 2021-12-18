@@ -41,11 +41,13 @@ public class Secretario extends Funcionario{
         return secretario;
     }
 
-    public static void registraImpressao(PedidoImpressao pedido) {
+    public static PedidoImpressao registraImpressao(PedidoImpressao pedido) {
         pedido.setStatus("Fila");
+        return pedido;
     }
 
-    public static void imprimir(PedidoImpressao pedido) {
+    public static PedidoImpressao imprimir(PedidoImpressao pedido) {
         pedido.setStatus("Concluido");
+        return pedido;
     }
 }

@@ -42,8 +42,8 @@ public class Aluno extends Usuario{
 
     public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor, String dataEntrega, String horaEntrega) {
         double preco = 0;
-        if(!this.verificaQtdCopiaGratuita()) {
-            preco = numCopias * 0.25;
+        if(numCopias > getCopiaGratuita()) {
+            preco = (numCopias-getCopiaGratuita()) * 0.25;
         }
         PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
 
@@ -54,16 +54,20 @@ public class Aluno extends Usuario{
         return this.getCopiaGratuita() > 0;
     }
 
-    public void pegar(PedidoImpressao pedidoImpressao) {
+    public boolean pegar(PedidoImpressao pedidoImpressao) {
         if(pedidoImpressao.getValor() > 0.0) {
             System.out.println("O valor é " + pedidoImpressao.getValor() + ". Confirmar (S/N)?");
             Scanner scanner = new Scanner(System.in);
             String resposta = scanner.nextLine();
             if(Objects.equals(resposta, "N")) {
-                return;
+                return false;
             }
         }
         pedidoImpressao.setStatus("Entregue");
+        if(verificaQtdCopiaGratuita()) {
+            this.copiaGratuita -= pedidoImpressao.getNumCopias();
+        }
+        return true;
     }
 }
 
