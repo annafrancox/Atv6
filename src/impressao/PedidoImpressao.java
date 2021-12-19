@@ -7,33 +7,29 @@ import usuario.Usuario;
 public class PedidoImpressao {
     private static int auxId;
     private int id, arquivo, numCopias;
-    private String cor, status, dataEntrega, horaEntrega;
+    private String cor, status, dataPedido, horaPedido, dataEntrega, horaEntrega;
     private double valor;
     private Professor solicitanteProfessor;
     private Aluno solicitanteAluno;
 
-    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Professor solicitanteProfessor) {
+    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, double valor, Professor solicitanteProfessor) {
         auxId++;
         this.id = auxId;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
         this.cor = cor;
         this.status = status;
-        this.dataEntrega = dataEntrega;
-        this.horaEntrega = horaEntrega;
         this.valor = valor;
         this.solicitanteProfessor = solicitanteProfessor;
     }
 
-    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, String dataEntrega, String horaEntrega, double valor, Aluno solicitanteAluno) {
+    public PedidoImpressao(int arquivo, int numCopias, String cor, String status, double valor, Aluno solicitanteAluno) {
         auxId++;
         this.id = auxId;
         this.arquivo = arquivo;
         this.numCopias = numCopias;
         this.cor = cor;
         this.status = status;
-        this.dataEntrega = dataEntrega;
-        this.horaEntrega = horaEntrega;
         this.valor = valor;
         this.solicitanteAluno = solicitanteAluno;
     }
@@ -118,6 +114,22 @@ public class PedidoImpressao {
         this.solicitanteAluno = solicitanteAluno;
     }
 
+    public String getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(String dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public String getHoraPedido() {
+        return horaPedido;
+    }
+
+    public void setHoraPedido(String horaPedido) {
+        this.horaPedido = horaPedido;
+    }
+
     @Override
     public String toString() {
         return "PedidoImpressao{" +
@@ -125,8 +137,8 @@ public class PedidoImpressao {
                 ", arquivo=" + arquivo +
                 ", numCopias=" + numCopias +
                 ", cor='" + cor + '\'' +
-                ", dataEntrega='" + dataEntrega + '\'' +
-                ", horaEntrega='" + horaEntrega + '\'' +
+                ", dataPedido='" + dataPedido + '\'' +
+                ", horaPedido='" + horaPedido + '\'' +
                 ", valor=" + valor +
                 '}';
     }

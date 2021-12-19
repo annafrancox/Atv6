@@ -2,6 +2,9 @@ package usuario;
 
 import impressao.PedidoImpressao;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -40,12 +43,23 @@ public class Aluno extends Usuario{
         this.curso = curso;
     }
 
-    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor, String dataEntrega, String horaEntrega) {
+    public PedidoImpressao pedeImpressao(int arquivo, int numCopias, String cor) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        String data = dateFormat.format(cal.getTime());
+
+        dateFormat = new SimpleDateFormat("HH:mm:ss");
+        cal = Calendar.getInstance();
+        String hour = dateFormat.format(cal.getTime());
+
         double preco = 0;
         if(numCopias > getCopiaGratuita() || !verificaQtdCopiaGratuita()) {
             preco = (numCopias-getCopiaGratuita()) * 0.25;
         }
-        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", dataEntrega, horaEntrega, preco, this);
+        PedidoImpressao pedidoImpressao = new PedidoImpressao(arquivo, numCopias, cor, "Solicitado", preco, this);
+        pedidoImpressao.setDataPedido(data);
+        pedidoImpressao.setHoraPedido(hour);
+
         this.copiaGratuita -= numCopias;
         if(this.copiaGratuita < 0) {
             setCopiaGratuita(0);
@@ -59,6 +73,14 @@ public class Aluno extends Usuario{
     }
 
     public boolean pegar(PedidoImpressao pedidoImpressao) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        String data = dateFormat.format(cal.getTime());
+
+        dateFormat = new SimpleDateFormat("HH:mm:ss");
+        cal = Calendar.getInstance();
+        String hour = dateFormat.format(cal.getTime());
+
         if(pedidoImpressao.getValor() > 0.0) {
             System.out.println("O valor é " + pedidoImpressao.getValor() + ". Confirmar (S/N)?");
             Scanner scanner = new Scanner(System.in);
@@ -68,6 +90,8 @@ public class Aluno extends Usuario{
             }
         }
         pedidoImpressao.setStatus("Entregue");
+        pedidoImpressao.setDataEntrega(data);
+        pedidoImpressao.setHoraEntrega(hour);
         return true;
     }
 }

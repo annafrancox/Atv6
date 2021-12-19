@@ -9,10 +9,7 @@ import usuario.Usuario;
 import usuario.Professor;
 import impressao.PedidoImpressao;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Collection;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,18 +21,33 @@ public class Main {
         Collection<DisciplinaSemestre> listaDisciplinasSemestre = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        int opc = -1;
+        int opc = 4;
         while(opc != 0) {
-            System.out.println("Bem-vindo ao sistema de impressão");
-            System.out.println("Escolha e digite uma das opções abaixo de acordo com seu nível de usuário:");
-            System.out.println("[1] para professor");
-            System.out.println("[2] para aluno");
-            System.out.println("[3] para secretário");
-            System.out.println("[0] para sair");
-            opc = scanner.nextInt();
+            do {
+                try {
+                    System.out.println("Bem-vindo ao sistema de impressão");
+                    System.out.println("Escolha e digite uma das opções abaixo de acordo com seu nível de usuário:");
+                    System.out.println("[1] para professor");
+                    System.out.println("[2] para aluno");
+                    System.out.println("[3] para secretário");
+                    System.out.println("[0] para sair");
+                    opc = scanner.nextInt();
+                    if(opc < 0){
+                        opc = -1;
+                        throw new Exception("Número negativo é inválido.");
+                    }
+                } catch (InputMismatchException e) {
+                    opc = -1;
+                    System.out.println("Por favor digite um número.");
+                } catch (Exception e) {
+                    opc = -1;
+                    System.out.println(e.getMessage());
+                }
+                scanner.nextLine();
+            } while (opc < 0);
             switch (opc) {
                 case 1:
-                    scanner.nextLine();
+                    //scanner.nextLine();
                     System.out.println("Digite a mátricula para acessar:");
                     String matriculaP = scanner.nextLine();
                     boolean existe = false;
@@ -48,34 +60,79 @@ public class Main {
                         }
                     }
                     if(existe) {
-                        int opcProf = -1;
+                        int opcProf = 3;
                         while(opcProf != 0) {
-                            System.out.println("Bem-vindo, professor!");
-                            System.out.println("Escolha e digite uma das opções abaixo:");
-                            System.out.println("[1] para pedir impressão");
-                            System.out.println("[2] para retirar impressões concluídas");
-                            System.out.println("[0] para sair");
-                            opcProf = scanner.nextInt();
+                            do {
+                                try {
+                                    System.out.println("Bem-vindo, professor!");
+                                    System.out.println("Escolha e digite uma das opções abaixo:");
+                                    System.out.println("[1] para pedir impressão");
+                                    System.out.println("[2] para retirar impressões concluídas");
+                                    System.out.println("[0] para sair");
+                                    opcProf = scanner.nextInt();
+                                    if(opcProf < 0){
+                                        opcProf = -1;
+                                        throw new Exception("Número negativo é inválido.");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    opcProf = -1;
+                                    System.out.println("Por favor, digite um número.");
+                                } catch (Exception e) {
+                                    opcProf = -1;
+                                    System.out.println(e.getMessage());
+                                }
+                                scanner.nextLine();
+                            } while (opcProf < 0);
                             switch(opcProf) {
                                 case 1:
-                                    int arquivo, numCopias;
-                                    String cor, dataEntrega, horaEntrega;
-                                    System.out.println("Digite a seguir as informações do pedido!");
-                                    System.out.println("Número do arquivo:");
-                                    arquivo = scanner.nextInt();
-                                    System.out.println("Número de cópias:");
-                                    numCopias = scanner.nextInt();
-                                    scanner.nextLine();
-                                    System.out.println("Data da impressão:");
-                                    dataEntrega = scanner.nextLine();
-                                    System.out.println("Hora da impressão:");
-                                    horaEntrega = scanner.nextLine();
-                                    System.out.println("Cor da impressão:");
-                                    cor = scanner.nextLine();
-                                    PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
-                                    System.out.println(pedidoImpressao);
-                                    listaPedidos.add(pedidoImpressao);
-                                    System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
+                                    try {
+                                        int arquivo = -1, numCopias = -1;
+                                        String cor;
+                                        System.out.println("Digite a seguir as informações do pedido!");
+                                        do {
+                                            try {
+                                                System.out.println("Número do arquivo");
+                                                arquivo = scanner.nextInt();
+                                                if(arquivo < 0){
+                                                    arquivo = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                arquivo = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                arquivo = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (arquivo < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Número de cópias:");
+                                                numCopias = scanner.nextInt();
+                                                if(numCopias < 0){
+                                                    numCopias = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                numCopias = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                numCopias = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (numCopias < 0);
+                                        //scanner.nextLine();
+                                        System.out.println("Cor da impressão:");
+                                        cor = scanner.nextLine();
+                                        PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor);
+                                        System.out.println(pedidoImpressao);
+                                        listaPedidos.add(pedidoImpressao);
+                                        System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
+                                    } catch(Exception e) {
+                                        System.out.println("Um dos dados foi digitado de forma errada. Verifique se não digitou uma letra ao invés de um número.");
+                                    }
                                     break;
                                 case 2:
                                     PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
@@ -111,7 +168,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    scanner.nextLine();
+                    //scanner.nextLine();
                     System.out.println("Digite a matricula para acessar:");
                     String matriculaA = scanner.nextLine();
                     boolean existeAluno = false;
@@ -124,33 +181,78 @@ public class Main {
                         }
                     }
                     if(existeAluno) {
-                        int opcAluno = -1;
+                        int opcAluno = 3;
                         while(opcAluno != 0) {
-                            System.out.println("Bem-vindo, aluno!");
-                            System.out.println("Escolha e digite uma das opções abaixo:");
-                            System.out.println("[1] para pedir impressão");
-                            System.out.println("[2] para retirar impressões concluídas");
-                            System.out.println("[0] para sair");
-                            opcAluno = scanner.nextInt();
+                            do {
+                                try {
+                                    System.out.println("Bem-vindo, aluno!");
+                                    System.out.println("Escolha e digite uma das opções abaixo:");
+                                    System.out.println("[1] para pedir impressão");
+                                    System.out.println("[2] para retirar impressões concluídas");
+                                    System.out.println("[0] para sair");
+                                    opcAluno = scanner.nextInt();
+                                    if(opcAluno < 0){
+                                        opcAluno = -1;
+                                        throw new Exception("Número negativo é inválido.");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    opcAluno = -1;
+                                    System.out.println("Por favor, digite um número.");
+                                } catch (Exception e) {
+                                    opcAluno = -1;
+                                    System.out.println(e.getMessage());
+                                }
+                                scanner.nextLine();
+                            } while (opcAluno < 0);
                             switch(opcAluno) {
                                 case 1:
-                                    int arquivo, numCopias;
-                                    String cor, dataEntrega, horaEntrega;
-                                    System.out.println("Digite a seguir as informações do pedido!");
-                                    System.out.println("Número do arquivo:");
-                                    arquivo = scanner.nextInt();
-                                    System.out.println("Número de cópias:");
-                                    numCopias = scanner.nextInt();
-                                    scanner.nextLine();
-                                    System.out.println("Data da impressão:");
-                                    dataEntrega = scanner.nextLine();
-                                    System.out.println("Hora da impressão:");
-                                    horaEntrega = scanner.nextLine();
-                                    System.out.println("Cor da impressão:");
-                                    cor = scanner.nextLine();
-                                    PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
-                                    listaPedidos.add(pedidoImpressao);
-                                    System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
+                                    try {
+                                        int arquivo = -1, numCopias = -1;
+                                        String cor;
+                                        System.out.println("Digite a seguir as informações do pedido!");
+                                        do {
+                                            try {
+                                                System.out.println("Número do arquivo:");
+                                                arquivo = scanner.nextInt();
+                                                if(arquivo < 0){
+                                                    arquivo = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                arquivo = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                arquivo = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (arquivo < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Número de cópias:");
+                                                numCopias = scanner.nextInt();
+                                                if(numCopias < 0){
+                                                    numCopias = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                numCopias = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                numCopias = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (numCopias < 0);
+                                        //scanner.nextLine();
+                                        System.out.println("Cor da impressão:");
+                                        cor = scanner.nextLine();
+                                        PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor);
+                                        listaPedidos.add(pedidoImpressao);
+                                        System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
+                                    } catch(Exception e) {
+                                        System.out.println("Um dos dados foi digitado de forma errada. Verifique se não digitou uma letra ao invés de um número.");
+                                    }
                                     break;
                                 case 2:
                                     PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
@@ -185,23 +287,38 @@ public class Main {
                     }
                     break;
                 case 3:
-                    scanner.nextLine();
+                    //scanner.nextLine();
                     System.out.println("Digite a credencial de acesso de secretários:");
                     String cred = scanner.nextLine();
                     while (!Objects.equals(cred, Secretario.credential)) {
                         System.out.println("ERRO! Digite novamente.");
                         cred = scanner.nextLine();
                     }
-                    int secOpc = -1;
+                    int secOpc = 5;
                     while (secOpc != 0) {
-                        System.out.println("Bem-vindo, secretário!");
-                        System.out.println("Escolha e digite uma das opções abaixo:");
-                        System.out.println("[1] para colocar pedidos na fila");
-                        System.out.println("[2] para dar pedidos como concluídos");
-                        System.out.println("[3] para cadastrar usuários");
-                        System.out.println("[4] para cadastrar disciplinas");
-                        System.out.println("[0] para sair");
-                        secOpc = scanner.nextInt();
+                        do {
+                            try {
+                                System.out.println("Bem-vindo, secretário!");
+                                System.out.println("Escolha e digite uma das opções abaixo:");
+                                System.out.println("[1] para colocar pedidos na fila");
+                                System.out.println("[2] para dar pedidos como concluídos");
+                                System.out.println("[3] para cadastrar usuários");
+                                System.out.println("[4] para cadastrar disciplinas");
+                                System.out.println("[0] para sair");
+                                secOpc = scanner.nextInt();
+                                if(secOpc < 0){
+                                    secOpc = -1;
+                                    throw new Exception("Número negativo é inválido.");
+                                }
+                            } catch (InputMismatchException e) {
+                                secOpc = -1;
+                                System.out.println("Por favor, digite um número.");
+                            } catch (Exception e) {
+                                secOpc = -1;
+                                System.out.println(e.getMessage());
+                            }
+                            scanner.nextLine();
+                        } while (secOpc < 0);
                         switch(secOpc) {
                             case 1:
                                 if(listaPedidos.isEmpty()) {
@@ -217,8 +334,24 @@ public class Main {
                                         }
                                     }
                                     if(contPedidosSolicitados > 0) {
-                                        System.out.println("Digite o ID do pedido que deseja registrar:");
-                                        int id = scanner.nextInt();
+                                        int id = -1;
+                                        do {
+                                            try {
+                                                System.out.println("Digite o ID do pedido que deseja registrar:");
+                                                id = scanner.nextInt();
+                                                if(id < 0){
+                                                    id = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                id = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                id = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (id < 0);
                                         PedidoImpressao pedidoParaAdicionarNaFila = null;
                                         for(PedidoImpressao pedido : listaPedidos) {
                                             if(pedido.getId() == id) {
@@ -254,8 +387,24 @@ public class Main {
                                         }
                                     }
                                     if(contPedidosFila > 0) {
-                                        System.out.println("Digite o ID do pedido concluido: ");
-                                        int idFila = scanner.nextInt();
+                                        int idFila = -1;
+                                        do {
+                                            try {
+                                                System.out.println("Digite o ID do pedido concluido: ");
+                                                idFila = scanner.nextInt();
+                                                if(idFila < 0){
+                                                    idFila = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                idFila = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                idFila = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (idFila < 0);
                                         PedidoImpressao pedidoParaConcluir = null;
                                         for(PedidoImpressao pedido : listaPedidos) {
                                             if(pedido.getId() == idFila && Objects.equals(pedido.getStatus(), "Fila")) {
@@ -278,12 +427,13 @@ public class Main {
                                 }
                                 break;
                             case 3:
-                                scanner.nextLine();
+                                //scanner.nextLine();
                                 System.out.println("Digite o nível de usuário que deseja cadastrar:");
                                 System.out.println("[P] para professor");
                                 System.out.println("[A] para aluno");
                                 System.out.println("[S] para secretário");
-                                String nome, sexo, anoNascimento, mesNascimento, diaNascimento, matricula;
+                                String nome, sexo, matricula;
+                                int anoNascimento = -1, mesNascimento = -1, diaNascimento = -1;
                                 String opcUsuario = scanner.nextLine();
                                 while(!Objects.equals(opcUsuario, "P") && !Objects.equals(opcUsuario, "A") && !Objects.equals(opcUsuario, "S")) {
                                     System.out.println("Opção inválida! Tente novamente.");
@@ -298,12 +448,57 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento");
-                                        System.out.println("Ano de nascimento(AAAA): ");
-                                        anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento(MM): ");
-                                        mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nascimento(DD): ");
-                                        diaNascimento = scanner.nextLine();
+                                        do {
+                                            try {
+                                                System.out.println("Ano de nascimento(AAAA): ");
+                                                anoNascimento = scanner.nextInt();
+                                                if(anoNascimento < 0){
+                                                    anoNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                anoNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                anoNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (anoNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Mês de nascimento(AAAA): ");
+                                                mesNascimento = scanner.nextInt();
+                                                if(mesNascimento < 0){
+                                                    mesNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                mesNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                mesNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Dia de nascimento(DD): ");
+                                                diaNascimento = scanner.nextInt();
+                                                if(diaNascimento < 0){
+                                                    diaNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                diaNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                diaNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
                                         String dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula:");
                                         matricula = scanner.nextLine();
@@ -347,11 +542,57 @@ public class Main {
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento: ");
                                         System.out.println("Ano de nascimento(AAAA): ");
-                                        anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento(MM): ");
-                                        mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nascimento(DD): ");
-                                        diaNascimento = scanner.nextLine();
+                                        do {
+                                            try {
+                                                System.out.println("Ano de nascimento(AAAA): ");
+                                                anoNascimento = scanner.nextInt();
+                                                if(anoNascimento < 0){
+                                                    anoNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                anoNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                anoNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (anoNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Mês de nascimento(AAAA): ");
+                                                mesNascimento = scanner.nextInt();
+                                                if(mesNascimento < 0){
+                                                    mesNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                mesNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                mesNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Dia de nascimento(DD): ");
+                                                diaNascimento = scanner.nextInt();
+                                                if(diaNascimento < 0){
+                                                    diaNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                diaNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                diaNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula: ");
                                         matricula = scanner.nextLine();
@@ -390,12 +631,57 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento");
-                                        System.out.println("Ano de nascimento(AAAA): ");
-                                        anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento(MM): ");
-                                        mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nascimento(DD): ");
-                                        diaNascimento = scanner.nextLine();
+                                        do {
+                                            try {
+                                                System.out.println("Ano de nascimento(AAAA): ");
+                                                anoNascimento = scanner.nextInt();
+                                                if(anoNascimento < 0){
+                                                    anoNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                anoNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                anoNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (anoNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Mês de nascimento(AAAA): ");
+                                                mesNascimento = scanner.nextInt();
+                                                if(mesNascimento < 0){
+                                                    mesNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                mesNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                mesNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
+                                        do {
+                                            try {
+                                                System.out.println("Dia de nascimento(DD): ");
+                                                diaNascimento = scanner.nextInt();
+                                                if(diaNascimento < 0){
+                                                    diaNascimento = -1;
+                                                    throw new Exception("Número negativo é inválido.");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                diaNascimento = -1;
+                                                System.out.println("Por favor, digite um número.");
+                                            } catch (Exception e) {
+                                                diaNascimento = -1;
+                                                System.out.println(e.getMessage());
+                                            }
+                                            scanner.nextLine();
+                                        } while (mesNascimento < 0);
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula: ");
                                         matricula = scanner.nextLine();
@@ -437,7 +723,7 @@ public class Main {
                                     }
                                 break;
                             case 4:
-                                scanner.nextLine();
+                                //scanner.nextLine();
                                 System.out.println("Digite o nome da disciplina :");
                                 String nomeDisciplina = scanner.nextLine();
                                 boolean existeDisciplina = false;
@@ -495,6 +781,7 @@ public class Main {
                     }
                     break;
                 default:
+                    System.out.println("Entrou aqui");
                     break;
             }
         }
