@@ -26,87 +26,17 @@ public class Main {
 
         int opc = -1;
         while(opc != 0) {
-            System.out.println("BEM-VINDO AO SISTEMA DE IMPRESSÃO");
-            System.out.println("ESCOLHA UMA DAS OPÇÕES ABAIXO DE ACORDO COM SEU NÍVEL DE USUÁRIO");
-            System.out.println("DIGITE 1 PARA PROFESSOR");
-            System.out.println("DIGITE 2 PARA ALUNO");
-            System.out.println("DIGITE 3 PARA SECRETÁRIO");
-            System.out.println("DIGITE 0 PARA SAIR");
+            System.out.println("Bem-vindo ao sistema de impressão");
+            System.out.println("Escolha e digite uma das opções abaixo de acordo com seu nível de usuário:");
+            System.out.println("[1] para professor");
+            System.out.println("[2] para aluno");
+            System.out.println("[3] para secretário");
+            System.out.println("[0] para sair");
             opc = scanner.nextInt();
             switch (opc) {
-                case 2:
-                    scanner.nextLine();
-                    System.out.println("DIGITE A MATRICULA PARA ACESSAR");
-                    String matriculaA = scanner.nextLine();
-                    boolean existeAluno = false;
-                    Aluno alunoPedindo = null;
-                    for(Aluno aluno : listaAlunos) {
-                        if(Objects.equals(matriculaA, aluno.getMatricula())) {
-                            alunoPedindo = aluno;
-                            existeAluno = true;
-                            break;
-                        }
-                    }
-                    if(existeAluno) {
-                        int opcAluno = -1;
-                        while(opcAluno != 0) {
-                            System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
-                            System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
-                            System.out.println("DIGITE 0 PARA SAIR");
-                            opcAluno = scanner.nextInt();
-                            switch(opcAluno) {
-                                case 1:
-                                    int arquivo, numCopias;
-                                    String cor, dataEntrega, horaEntrega;
-                                    System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
-                                    System.out.println("Digite o número do arquivo");
-                                    arquivo = scanner.nextInt();
-                                    System.out.println("Digite o número de cópias");
-                                    numCopias = scanner.nextInt();
-                                    scanner.nextLine();
-                                    System.out.println("Digite a data da impressão");
-                                    dataEntrega = scanner.nextLine();
-                                    System.out.println("Digite a hora da impressão");
-                                    horaEntrega = scanner.nextLine();
-                                    System.out.println("Digite a cor da impressão");
-                                    cor = scanner.nextLine();
-                                    PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
-                                    listaPedidos.add(pedidoImpressao);
-                                    break;
-                                case 2:
-                                    PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
-                                    int i = 0, j = 0;
-                                    for(PedidoImpressao pedido : listaPedidos) {
-                                        j++;
-                                        if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
-                                            System.out.println(pedido);
-                                            if(alunoPedindo.pegar(pedido)) {
-                                                pedidosParaRemover[i] = pedido;
-                                                i++;
-                                                System.out.println("Impressão retirada com sucesso!");
-                                            }
-                                        }
-                                    }
-                                    if(j == 0) {
-                                        System.out.println("Não existem pedidos para serem retirados.");
-                                    }
-                                    for(PedidoImpressao r : pedidosParaRemover) {
-                                        listaPedidos.remove(r);
-                                    }
-                                case 0:
-                                    break;
-                                default:
-                                    System.out.println("Opção inválida! Erro");
-                            }
-                        }
-                    }
-                    else {
-                        System.out.println("ERRO! MATRÍCULA NÃO ENCONTRADA! TENTE NOVAMENTE");
-                    }
-                    break;
                 case 1:
                     scanner.nextLine();
-                    System.out.println("DIGITE A MATRICULA PARA ACESSAR");
+                    System.out.println("Digite a mátricula para acessar:");
                     String matriculaP = scanner.nextLine();
                     boolean existe = false;
                     Professor professorPedindo = null;
@@ -120,29 +50,32 @@ public class Main {
                     if(existe) {
                         int opcProf = -1;
                         while(opcProf != 0) {
-                            System.out.println("DIGITE 1 PARA PEDIR IMPRESSÃO");
-                            System.out.println("DIGITE 2 PARA RETIRAR IMPRESSÕES CONCLUÍDAS");
-                            System.out.println("DIGITE 0 PARA SAIR");
+                            System.out.println("Bem-vindo, professor!");
+                            System.out.println("Escolha e digite uma das opções abaixo:");
+                            System.out.println("[1] para pedir impressão");
+                            System.out.println("[2] para retirar impressões concluídas");
+                            System.out.println("[0] para sair");
                             opcProf = scanner.nextInt();
                             switch(opcProf) {
                                 case 1:
                                     int arquivo, numCopias;
                                     String cor, dataEntrega, horaEntrega;
-                                    System.out.println("DIGITE AS INFORMAÇÕES DO PEDIDO");
-                                    System.out.println("Digite o número do arquivo");
+                                    System.out.println("Digite a seguir as informações do pedido!");
+                                    System.out.println("Número do arquivo:");
                                     arquivo = scanner.nextInt();
-                                    System.out.println("Digite o número de cópias");
+                                    System.out.println("Número de cópias:");
                                     numCopias = scanner.nextInt();
                                     scanner.nextLine();
-                                    System.out.println("Digite a data da impressão");
+                                    System.out.println("Data da impressão:");
                                     dataEntrega = scanner.nextLine();
-                                    System.out.println("Digite a hora da impressão");
+                                    System.out.println("Hora da impressão:");
                                     horaEntrega = scanner.nextLine();
-                                    System.out.println("Digite a cor da impressão");
+                                    System.out.println("Cor da impressão:");
                                     cor = scanner.nextLine();
                                     PedidoImpressao pedidoImpressao = professorPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
                                     System.out.println(pedidoImpressao);
                                     listaPedidos.add(pedidoImpressao);
+                                    System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
                                     break;
                                 case 2:
                                     PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
@@ -165,41 +98,117 @@ public class Main {
                                         listaPedidos.remove(r);
                                     }
                                 case 0:
+                                    System.out.println("Obrigado por usar o sistema! (:");
                                     break;
                                 default:
-                                    System.out.println("Erro! Opção inválida");
+                                    System.out.println("Erro! Opção inválida.");
                                     break;
                             }
                         }
                     }
                     else {
-                        System.out.println("ERRO! MATRÍCULA NÃO ENCONTRADA! TENTE NOVAMENTE");
+                        System.out.println("Erro! A mátricula digitada não foi encontrada. Tente novamente");
+                    }
+                    break;
+                case 2:
+                    scanner.nextLine();
+                    System.out.println("Digite a matricula para acessar:");
+                    String matriculaA = scanner.nextLine();
+                    boolean existeAluno = false;
+                    Aluno alunoPedindo = null;
+                    for(Aluno aluno : listaAlunos) {
+                        if(Objects.equals(matriculaA, aluno.getMatricula())) {
+                            alunoPedindo = aluno;
+                            existeAluno = true;
+                            break;
+                        }
+                    }
+                    if(existeAluno) {
+                        int opcAluno = -1;
+                        while(opcAluno != 0) {
+                            System.out.println("Bem-vindo, aluno!");
+                            System.out.println("Escolha e digite uma das opções abaixo:");
+                            System.out.println("[1] para pedir impressão");
+                            System.out.println("[2] para retirar impressões concluídas");
+                            System.out.println("[0] para sair");
+                            opcAluno = scanner.nextInt();
+                            switch(opcAluno) {
+                                case 1:
+                                    int arquivo, numCopias;
+                                    String cor, dataEntrega, horaEntrega;
+                                    System.out.println("Digite a seguir as informações do pedido!");
+                                    System.out.println("Número do arquivo:");
+                                    arquivo = scanner.nextInt();
+                                    System.out.println("Número de cópias:");
+                                    numCopias = scanner.nextInt();
+                                    scanner.nextLine();
+                                    System.out.println("Data da impressão:");
+                                    dataEntrega = scanner.nextLine();
+                                    System.out.println("Hora da impressão:");
+                                    horaEntrega = scanner.nextLine();
+                                    System.out.println("Cor da impressão:");
+                                    cor = scanner.nextLine();
+                                    PedidoImpressao pedidoImpressao = alunoPedindo.pedeImpressao(arquivo, numCopias, cor, dataEntrega, horaEntrega);
+                                    listaPedidos.add(pedidoImpressao);
+                                    System.out.println("Pedido concluído com sucesso! Agora é só esperar a aprovação :)");
+                                    break;
+                                case 2:
+                                    PedidoImpressao pedidosParaRemover[] = new PedidoImpressao[listaPedidos.size()];
+                                    int i = 0, j = 0;
+                                    for(PedidoImpressao pedido : listaPedidos) {
+                                        j++;
+                                        if(pedido.getSolicitanteAluno() == alunoPedindo && pedido.getStatus() == "Concluido") {
+                                            System.out.println(pedido);
+                                            if(alunoPedindo.pegar(pedido)) {
+                                                pedidosParaRemover[i] = pedido;
+                                                i++;
+                                                System.out.println("Impressão retirada com sucesso!");
+                                            }
+                                        }
+                                    }
+                                    if(j == 0) {
+                                        System.out.println("Não existem pedidos para serem retirados.");
+                                    }
+                                    for(PedidoImpressao r : pedidosParaRemover) {
+                                        listaPedidos.remove(r);
+                                    }
+                                case 0:
+                                    System.out.println("Obrigado por usar o sistema! (:");
+                                    break;
+                                default:
+                                    System.out.println("Erro! Opção inválida.");
+                            }
+                        }
+                    }
+                    else {
+                        System.out.println("Erro! A mátricula digitada não foi encontrada. Tente novamente");
                     }
                     break;
                 case 3:
                     scanner.nextLine();
-                    System.out.println("DIGITE A CREDENCIAL DE ACESSO DE SECRETÁRIOS");
+                    System.out.println("Digite a credencial de acesso de secretários:");
                     String cred = scanner.nextLine();
                     while (!Objects.equals(cred, Secretario.credential)) {
-                        System.out.println("ERRO! DIGITE NOVAMENTE");
+                        System.out.println("ERRO! Digite novamente.");
                         cred = scanner.nextLine();
                     }
                     int secOpc = -1;
                     while (secOpc != 0) {
-                        System.out.println("ESCOLHA UMA DAS OPERAÇÕES ABAIXO");
-                        System.out.println("DIGITE 1 PARA COLOCAR PEDIDOS NA FILA");
-                        System.out.println("DIGITE 2 PARA DAR PEDIDOS COMO CONCLUÍDO");
-                        System.out.println("DIGITE 3 PARA CADASTRAR USUÁRIOS");
-                        System.out.println("DIGITE 4 PARA CADASTRAR DISCIPLINAS");
-                        System.out.println("DIGITE 0 PARA SAIR");
+                        System.out.println("Bem-vindo, secretário!");
+                        System.out.println("Escolha e digite uma das opções abaixo:");
+                        System.out.println("[1] para colocar pedidos na fila");
+                        System.out.println("[2] para dar pedidos como concluídos");
+                        System.out.println("[3] para cadastrar usuários");
+                        System.out.println("[4] para cadastrar disciplinas");
+                        System.out.println("[0] para sair");
                         secOpc = scanner.nextInt();
                         switch(secOpc) {
                             case 1:
                                 if(listaPedidos.isEmpty()) {
-                                    System.out.println("Não existe nenhum pedido cadastrado no momento.");
+                                    System.out.println("Não existe nenhum pedido cadastrado no momento!");
                                 }
                                 else {
-                                    System.out.println("LISTA DOS PEDIDOS PARA COLOCAR NA FILA: ");
+                                    System.out.println("Lista dos pedidos a serem registrados:");
                                     int contPedidosSolicitados = 0;
                                     for(PedidoImpressao pedido : listaPedidos) {
                                         if(Objects.equals(pedido.getStatus(), "Solicitado")) {
@@ -208,7 +217,7 @@ public class Main {
                                         }
                                     }
                                     if(contPedidosSolicitados > 0) {
-                                        System.out.println("DIGITE O ID DO PEDIDO QUE QUER ADICIONAR NA FILA: ");
+                                        System.out.println("Digite o ID do pedido que deseja registrar:");
                                         int id = scanner.nextInt();
                                         PedidoImpressao pedidoParaAdicionarNaFila = null;
                                         for(PedidoImpressao pedido : listaPedidos) {
@@ -223,21 +232,21 @@ public class Main {
                                             listaPedidos.add(pedido);
                                         }
                                         else {
-                                            System.out.println("PEDIDO NÃO ENCONTRADO!");
+                                            System.out.println("Erro! Pedido não encontrado.");
                                         }
                                     }
                                     else {
-                                        System.out.println("Não tem nenhum pedido solicitado no momento.");
+                                        System.out.println("Não existe pedido solicitado no momento.");
                                     }
                                 }
                                 break;
                             case 2:
                                 if(listaPedidos.isEmpty()) {
-                                    System.out.println("Não existe nenhum pedido cadastrado no momento.");
+                                    System.out.println("Não existe pedido solicitado no momento.");
                                 }
                                 else {
                                     int contPedidosFila = 0;
-                                    System.out.println("LISTA DOS PEDIDOS PARA DAR COMO CONCLUÍDO: ");
+                                    System.out.println("Lista dos pedidos em fila: ");
                                     for(PedidoImpressao pedido : listaPedidos) {
                                         if(Objects.equals(pedido.getStatus(), "Fila")) {
                                             contPedidosFila++;
@@ -245,7 +254,7 @@ public class Main {
                                         }
                                     }
                                     if(contPedidosFila > 0) {
-                                        System.out.println("DIGITE O ID DO PEDIDO QUE QUER DAR COMO CONCLUIDO: ");
+                                        System.out.println("Digite o ID do pedido concluido: ");
                                         int idFila = scanner.nextInt();
                                         PedidoImpressao pedidoParaConcluir = null;
                                         for(PedidoImpressao pedido : listaPedidos) {
@@ -260,39 +269,43 @@ public class Main {
                                             listaPedidos.add(pedidoConcluido);
                                         }
                                         else {
-                                            System.out.println("PEDIDO NÃO ENCONTRADO!");
+                                            System.out.println("Erro! Pedido não encontrado.");
                                         }
                                     }
                                     else {
-                                        System.out.println("Não tem nenhum pedido na fila para aprovação.");
+                                        System.out.println("Não existe pedido na fila para aprovação.");
                                     }
                                 }
                                 break;
                             case 3:
                                 scanner.nextLine();
-                                System.out.println("Deseja cadastrar um professor, um aluno ou um secretário? (P para professor, A para aluno e S para secretário)");
+                                System.out.println("Digite o nível de usuário que deseja cadastrar:");
+                                System.out.println("[P] para professor");
+                                System.out.println("[A] para aluno");
+                                System.out.println("[S] para secretário");
                                 String nome, sexo, anoNascimento, mesNascimento, diaNascimento, matricula;
                                 String opcUsuario = scanner.nextLine();
                                 while(!Objects.equals(opcUsuario, "P") && !Objects.equals(opcUsuario, "A") && !Objects.equals(opcUsuario, "S")) {
-                                    System.out.println("Opção inválida!");
+                                    System.out.println("Opção inválida! Tente novamente.");
                                     opcUsuario = scanner.nextLine();
                                 }
                                 switch(opcUsuario) {
                                     case "P":
                                         String unidade, departamento, horarioAtendimento;
-                                        System.out.println("Digite o nome");
+                                        System.out.println("Digite as informações do professor a ser registrado:");
+                                        System.out.println("Nome: ");
                                         nome = scanner.nextLine();
-                                        System.out.println("Digite o sexo");
+                                        System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
-                                        System.out.println("DATA DE NASCIMENTO");
-                                        System.out.println("Digite o ano de nascimento: ");
+                                        System.out.println("Data de nascimento");
+                                        System.out.println("Ano de nascimento: ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Digite o mês de nascimento: ");
+                                        System.out.println("Mês de nascimento: ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Digite o dia de nasicmento: ");
+                                        System.out.println("Dia de nasicmento: ");
                                         diaNascimento = scanner.nextLine();
                                         String dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
-                                        System.out.println("Digite a matricula:");
+                                        System.out.println("Matrícula:");
                                         matricula = scanner.nextLine();
                                         boolean verificaMatricula = false;
                                         for(Professor professor : listaProfessores) {
@@ -310,30 +323,32 @@ public class Main {
                                             }
                                             verificaMatricula = false;
                                         }
-                                        System.out.println("Digite a unidade: ");
+                                        System.out.println("Unidade: ");
                                         unidade = scanner.nextLine();
-                                        System.out.println("Digite o departamento: ");
+                                        System.out.println("Departamento: ");
                                         departamento = scanner.nextLine();
-                                        System.out.println("Digite o horario de atendimento: ");
+                                        System.out.println("Horário de atendimento: ");
                                         horarioAtendimento = scanner.nextLine();
                                         Professor professor = Secretario.cadastraProfessor(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioAtendimento);
                                         listaProfessores.add(professor);
+                                        System.out.println("Professor cadastrado com sucesso!");
                                         break;
                                     case "A":
                                         String curso;
-                                        System.out.println("Digite o nome");
+                                        System.out.println("Digite as informações do aluno a ser registrado:");
+                                        System.out.println("Nome: ");
                                         nome = scanner.nextLine();
-                                        System.out.println("Digite o sexo");
+                                        System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
-                                        System.out.println("DATA DE NASCIMENTO");
-                                        System.out.println("Digite o ano de nascimento: ");
+                                        System.out.println("Data de nascimento: ");
+                                        System.out.println("Ano de nascimento: ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Digite o mês de nascimento: ");
+                                        System.out.println("Mês de nascimento: ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Digite o dia de nasicmento: ");
+                                        System.out.println("Dia de nasicmento: ");
                                         diaNascimento = scanner.nextLine();
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
-                                        System.out.println("Digite a matricula: ");
+                                        System.out.println("Matrícula: ");
                                         matricula = scanner.nextLine();
                                         boolean verificaMatriculaAluno = false;
                                         for(Aluno aluno : listaAlunos) {
@@ -350,26 +365,28 @@ public class Main {
                                             }
                                             verificaMatriculaAluno = false;
                                         }
-                                        System.out.println("Digite o curso: ");
+                                        System.out.println("Curso: ");
                                         curso = scanner.nextLine();
                                         Aluno aluno = Secretario.cadastraAluno(nome, sexo, dataNascimento, matricula, curso);
                                         listaAlunos.add(aluno);
+                                        System.out.println("Aluno cadastrado com sucesso!");
                                         break;
                                     case "S":
+                                        System.out.println("Digite as informações do secretário a ser registrado:");
                                         String horarioTrabalho;
-                                        System.out.println("Digite o nome");
+                                        System.out.println("Nome: ");
                                         nome = scanner.nextLine();
-                                        System.out.println("Digite o sexo");
+                                        System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
-                                        System.out.println("DATA DE NASCIMENTO");
-                                        System.out.println("Digite o ano de nascimento: ");
+                                        System.out.println("Data de nascimento");
+                                        System.out.println("Ano de nascimento: ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Digite o mês de nascimento: ");
+                                        System.out.println("Mês de nascimento: ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Digite o dia de nasicmento: ");
+                                        System.out.println("Dia de nasicmento: ");
                                         diaNascimento = scanner.nextLine();
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
-                                        System.out.println("Digite a matricula:");
+                                        System.out.println("Matrícula: ");
                                         matricula = scanner.nextLine();
                                         boolean verificaMatriculaSec = false;
                                         for(Secretario secretario : listaSecretarios) {
@@ -387,14 +404,15 @@ public class Main {
                                             }
                                             verificaMatriculaSec = false;
                                         }
-                                        System.out.println("Digite a unidade: ");
+                                        System.out.println("Unidade: ");
                                         unidade = scanner.nextLine();
-                                        System.out.println("Digite o departamento: ");
+                                        System.out.println("Departamento: ");
                                         departamento = scanner.nextLine();
-                                        System.out.println("Digite o horário de trabalho: ");
+                                        System.out.println("Horário de trabalho: ");
                                         horarioTrabalho = scanner.nextLine();
                                         Secretario secretario = Secretario.cadastraSecretario(nome, sexo, dataNascimento, matricula, unidade, departamento, horarioTrabalho);
                                         listaSecretarios.add(secretario);
+                                        System.out.println("Secretário cadastrado com sucesso!");
                                         System.out.println("A credencial de acesso para o novo secretário é " + Secretario.credential + ". Por favor informe-lhe.");
                                         break;
                                     default:
@@ -404,7 +422,7 @@ public class Main {
                                 break;
                             case 4:
                                 scanner.nextLine();
-                                System.out.println("Digite o nome da disciplina");
+                                System.out.println("Digite o nome da disciplina :");
                                 String nomeDisciplina = scanner.nextLine();
                                 boolean existeDisciplina = false;
                                 Disciplina disciplinaProcurada = null;
@@ -444,13 +462,15 @@ public class Main {
                                         }
                                     }
                                     if(cadastrado) {
-                                        System.out.println("Esta disciplina já tem um professor nesse semestre");
+                                        System.out.println("Esta disciplina já tem um professor nesse semestre!");
                                     }
                                     else {
                                         listaDisciplinasSemestre.add(disciplinaSemestre);
+                                        System.out.println("O professor está cadastrado na disciplina!");
                                     }
                                 }
                             case 0:
+                                System.out.println("Obrigado por usar o sistema! (:");
                                 break;
                             default:
                                 System.out.println("Opção inválida!");
