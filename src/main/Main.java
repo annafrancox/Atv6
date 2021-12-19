@@ -1,3 +1,8 @@
+//Anna Letícia Franco Monteiro - 202065106A
+//Davi Esteves dos Santos - 202065504B
+//Gabriel do Carmo Silva - 202065030AC
+//Pedro Campos Lima - 202065521B
+
 package main;
 
 import disciplina.Disciplina;
@@ -541,7 +546,6 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento: ");
-                                        System.out.println("Ano de nascimento(AAAA): ");
                                         do {
                                             try {
                                                 System.out.println("Ano de nascimento(AAAA): ");
@@ -561,7 +565,7 @@ public class Main {
                                         } while (anoNascimento < 0);
                                         do {
                                             try {
-                                                System.out.println("Mês de nascimento(AAAA): ");
+                                                System.out.println("Mês de nascimento(MM): ");
                                                 mesNascimento = scanner.nextInt();
                                                 if(mesNascimento < 0){
                                                     mesNascimento = -1;
@@ -780,8 +784,11 @@ public class Main {
                         }
                     }
                     break;
+                case 0:
+                    System.out.println("Obrigado por usar o sistema! (:");
+                    break;
                 default:
-                    System.out.println("Entrou aqui");
+                    System.out.println("Opção inválida!");
                     break;
             }
         }
