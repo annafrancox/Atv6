@@ -302,13 +302,18 @@ public class Main {
                                             }
                                         }
                                         while(verificaMatricula) {
+                                            Professor p = null;
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
                                             for(Professor professor : listaProfessores) {
                                                 if(Objects.equals(professor.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    p = professor;
                                                     break;
                                                 }
                                             }
-                                            verificaMatricula = false;
+                                            if(p == null) {
+                                                verificaMatricula = false;
+                                            }
                                         }
                                         System.out.println("Digite a unidade: ");
                                         unidade = scanner.nextLine();
@@ -338,17 +343,23 @@ public class Main {
                                         boolean verificaMatriculaAluno = false;
                                         for(Aluno aluno : listaAlunos) {
                                             if(Objects.equals(aluno.getMatricula(), matricula)) {
+                                                verificaMatriculaAluno = true;
                                                 break;
                                             }
                                         }
                                         while(verificaMatriculaAluno) {
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
+                                            Aluno a = null;
                                             for(Aluno aluno : listaAlunos) {
                                                 if(Objects.equals(aluno.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    a = aluno;
                                                     break;
                                                 }
                                             }
-                                            verificaMatriculaAluno = false;
+                                            if(a == null) {
+                                                verificaMatriculaAluno = false;
+                                            }
                                         }
                                         System.out.println("Digite o curso: ");
                                         curso = scanner.nextLine();
@@ -379,13 +390,18 @@ public class Main {
                                             }
                                         }
                                         while(verificaMatriculaSec) {
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
+                                            Secretario s = null;
                                             for(Secretario secretario : listaSecretarios) {
                                                 if(Objects.equals(secretario.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    s = secretario;
                                                     break;
                                                 }
                                             }
-                                            verificaMatriculaSec = false;
+                                            if(s == null) {
+                                                verificaMatriculaSec = false;
+                                            }
                                         }
                                         System.out.println("Digite a unidade: ");
                                         unidade = scanner.nextLine();
