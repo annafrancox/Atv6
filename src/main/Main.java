@@ -298,11 +298,17 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento");
-                                        System.out.println("Ano de nascimento: ");
+                                        System.out.println("Ano de nascimento(AAAA): ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento: ");
+                                        System.out.println("Mês de nascimento(MM): ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nasicmento: ");
+                                        System.out.println("Dia de nasicmento(DD): ");
+                                        // System.out.println("DATA DE NASCIMENTO");
+                                        // System.out.println("Digite o ano de nascimento (em números): ");
+                                        // anoNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o mês de nascimento (em números): ");
+                                        // mesNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o dia de nasicmento (em números): ");
                                         diaNascimento = scanner.nextLine();
                                         String dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula:");
@@ -315,13 +321,18 @@ public class Main {
                                             }
                                         }
                                         while(verificaMatricula) {
+                                            Professor p = null;
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
                                             for(Professor professor : listaProfessores) {
                                                 if(Objects.equals(professor.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    p = professor;
                                                     break;
                                                 }
                                             }
-                                            verificaMatricula = false;
+                                            if(p == null) {
+                                                verificaMatricula = false;
+                                            }
                                         }
                                         System.out.println("Unidade: ");
                                         unidade = scanner.nextLine();
@@ -341,11 +352,17 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento: ");
-                                        System.out.println("Ano de nascimento: ");
+                                        System.out.println("Ano de nascimento(AAAA): ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento: ");
+                                        System.out.println("Mês de nascimento(MM): ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nasicmento: ");
+                                        System.out.println("Dia de nasicmento(DD): ");
+                                        // System.out.println("DATA DE NASCIMENTO");
+                                        // System.out.println("Digite o ano de nascimento (em números): ");
+                                        // anoNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o mês de nascimento (em números): ");
+                                        // mesNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o dia de nasicmento (em números): ");
                                         diaNascimento = scanner.nextLine();
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula: ");
@@ -353,17 +370,23 @@ public class Main {
                                         boolean verificaMatriculaAluno = false;
                                         for(Aluno aluno : listaAlunos) {
                                             if(Objects.equals(aluno.getMatricula(), matricula)) {
+                                                verificaMatriculaAluno = true;
                                                 break;
                                             }
                                         }
                                         while(verificaMatriculaAluno) {
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
+                                            Aluno a = null;
                                             for(Aluno aluno : listaAlunos) {
                                                 if(Objects.equals(aluno.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    a = aluno;
                                                     break;
                                                 }
                                             }
-                                            verificaMatriculaAluno = false;
+                                            if(a == null) {
+                                                verificaMatriculaAluno = false;
+                                            }
                                         }
                                         System.out.println("Curso: ");
                                         curso = scanner.nextLine();
@@ -379,11 +402,17 @@ public class Main {
                                         System.out.println("Sexo: ");
                                         sexo = scanner.nextLine();
                                         System.out.println("Data de nascimento");
-                                        System.out.println("Ano de nascimento: ");
+                                        System.out.println("Ano de nascimento(AAAA): ");
                                         anoNascimento = scanner.nextLine();
-                                        System.out.println("Mês de nascimento: ");
+                                        System.out.println("Mês de nascimento(MM): ");
                                         mesNascimento = scanner.nextLine();
-                                        System.out.println("Dia de nasicmento: ");
+                                        // System.out.println("Dia de nasicmento(DD): ");
+                                        // System.out.println("DATA DE NASCIMENTO");
+                                        // System.out.println("Digite o ano de nascimento (em números): ");
+                                        // anoNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o mês de nascimento (em números): ");
+                                        // mesNascimento = scanner.nextLine();
+                                        // System.out.println("Digite o dia de nasicmento (em números): ");
                                         diaNascimento = scanner.nextLine();
                                         dataNascimento = anoNascimento + "/" + mesNascimento + "/" + diaNascimento;
                                         System.out.println("Matrícula: ");
@@ -396,13 +425,18 @@ public class Main {
                                             }
                                         }
                                         while(verificaMatriculaSec) {
+                                            System.out.println("Matrícula já existe. Por favor digite outra");
+                                            matricula = scanner.nextLine();
+                                            Secretario s = null;
                                             for(Secretario secretario : listaSecretarios) {
                                                 if(Objects.equals(secretario.getMatricula(), matricula)) {
-                                                    matricula = scanner.nextLine();
+                                                    s = secretario;
                                                     break;
                                                 }
                                             }
-                                            verificaMatriculaSec = false;
+                                            if(s == null) {
+                                                verificaMatriculaSec = false;
+                                            }
                                         }
                                         System.out.println("Unidade: ");
                                         unidade = scanner.nextLine();
